@@ -1,25 +1,33 @@
-import { Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { CreateRecipeDto } from './create-recipe.dto';
+import { RecipeService } from './recipes.service';
 
 @Controller('recipes')
-export class RecipesController {
-    @Get()
-    async recipes (){
-        return 'hellooo'
-    }
+export class RecipeController {
+  constructor(private readonly recipeService: RecipeService) {}
 
-    @Post()
-    async createRecipe(){
-        return ' recipe created successfully'
-    }
+  @Post()
+  async create(@Body() createRecipeDto: CreateRecipeDto) {
+    return this.recipeService.createRecipe(createRecipeDto);
+  }
 
-    @Put(':id')
-    async feedAnimal(@Param('id') id: string) {
-      return 'recipe edited successfully';
-    }
+  @Get()
+  async findAll() {
+    return this.recipeService.getRecipes();
+  }
 
-    @Delete()
-    async deleteRecipe(@Param('id') id: string) {
-        return 'Recipe deleted successfully';
-    }
-    
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return this.recipeService.getRecipeById(id);
+  }
+
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateRecipeDto: CreateRecipeDto) {
+    return this.recipeService.updateRecipe(id, updateRecipeDto);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    return this.recipeService.deleteRecipe(id);
+  }
 }

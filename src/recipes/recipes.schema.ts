@@ -1,18 +1,22 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-@Schema({ versionKey: false })
-export class Recipes {
-    @Prop({ required: true })
-    name: string;
-  
-    @Prop({ required: true })
-    animalType: string;
-  
-    @Prop({ required: true })
-    foodType: string;
-  
-    @Prop({ type: Number, default: 0 })
-    thanksCount: number;
-  }
-  
-export const RecipeSchema = SchemaFactory.createForClass(Recipes);
+@Schema()
+export class Recipe extends Document {
+  @Prop({ required: true })
+  title: string;
+
+  @Prop({ required: true })
+  description: string;
+
+  @Prop({ type: [String], required: true })
+  ingredients: string[];
+
+  @Prop({ required: true })
+  instructions: string;
+
+  @Prop({ required: true })
+  image: string;
+}
+
+export const RecipeSchema = SchemaFactory.createForClass(Recipe);
