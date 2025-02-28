@@ -14,7 +14,11 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: ['http://localhost:4200', 'https://recipe-space-6dece.web.app/'],
+    origin: [
+      'http://localhost:4200',
+      'https://recipe-space-6dece.web.app',
+      'https://recipe-space-6dece.firebaseapp.com',
+    ],
     methods: 'GET,POST,PUT,DELETE',
     allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
     credentials: true,
